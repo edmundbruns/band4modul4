@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SOL Schulsozialarbeit Niedersachsen | Band 4, Modul 4: Krisenintervention, Dokumentation und Kooperation mit Jugendhilfe</title>
+<style>
+:root {
+ --bg:#f6f7fb; --card:#ffffff; --ink:#172033; --muted:#5b6475; --line:#d7dcea; --accent:#1f4e79; --ok:#1d6b42; --warn:#8a5a00; --bad:#8b1e1e; --soft:#eef3f8;
+}
+* {box-sizing:border-box}
+body {margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);line-height:1.55}
+header {background:linear-gradient(135deg,#173b5f,#1f4e79);color:white;padding:28px 24px}
+header h1 {margin:.2rem 0;font-size:clamp(1.5rem,3vw,2.4rem)}
+header p {max-width:960px;margin:.3rem 0;color:#e7edf6}
+.header-submit-controls {display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-top:14px}
+.header-submit-controls label {display:block;min-width:220px;max-width:300px;font-weight:650;color:white}
+.header-submit-controls input {margin-top:5px;color:var(--ink)}
+.header-submit-controls button {background:#327d4f;color:white}
+.header-submit-controls button.secondary {background:#596579;color:white}
+.header-submit-controls .checkline {display:flex;gap:8px;align-items:flex-start;min-width:280px;max-width:720px;font-weight:550;color:#e7edf6}
+.header-submit-controls .checkline input {width:auto;margin-top:4px}
+.header-send-status {font-weight:650;color:#e7edf6;min-width:240px;padding:10px 0}
+.layout {display:grid;grid-template-columns:320px 1fr;gap:20px;padding:20px;max-width:1500px;margin:auto}
+nav {position:sticky;top:16px;align-self:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 4px 18px rgba(0,0,0,.06)}
+nav.hidden {display:none!important}
+.layout.full {grid-template-columns:1fr}
+.navbtn {
+ display:block;width:100%;text-align:left;margin:6px 0;padding:10px;border:1px solid var(--line);
+ border-radius:10px;background:#fff;color:var(--ink)!important;cursor:pointer;font-weight:650;
+}
+.navbtn.locked {opacity:1;cursor:not-allowed;background:#f1f2f5;color:#5b6475!important;border-color:#d9deea}
+.navbtn.done {border-color:#7fc499;background:#eef9f1;color:#173b25!important}
+.navbtn.active {outline:3px solid #b7cde4;background:#eef5fb;color:#102033!important}
+main {min-width:0}
+.card {background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 4px 18px rgba(0,0,0,.05)}
+.section {display:none}
+.section.active {display:block}
+.controls {display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+button {border:0;border-radius:10px;background:var(--accent);color:white;padding:10px 14px;cursor:pointer;font-weight:650}
+button.secondary {background:#596579}
+button:disabled {opacity:.75;cursor:not-allowed}
+.navbtn:disabled {color:#5b6475!important;background:#f1f2f5!important}
+.progress {height:14px;background:#e3e7ef;border-radius:20px;overflow:hidden;margin:10px 0}
+#bar {height:100%;width:0;background:#327d4f}
+.theory,.task,.case,.nds,.warn,.hint,.linebox,.solution,.analysis,.feedback,.competence,.certificate,.printcard {
+border-radius:14px;padding:14px;margin:14px 0;border:1px solid var(--line);background:#fff
+}
+.theory {background:#f9fbff}
+.task {background:#fffdf6;border-color:#eadca6}
+.case {background:#f6fbf8;border-color:#b8d9c4}
+.nds {background:#eef5fb;border-color:#a8c4df}
+.warn {background:#fff3f3;border-color:#e3a5a5}
+.hint,.linebox {background:#f3f6f9}
+.solution {background:#eef9f1;border-color:#9ed0aa}
+.analysis {background:#f8f4ff;border-color:#c9b5ef}
+.feedback {background:#f4f6f9}
+.hidden {display:none!important}
+textarea,select,input {width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;margin:8px 0;background:white}
+textarea {min-height:120px;resize:vertical}
+table {width:100%;border-collapse:collapse;margin:12px 0;background:white}
+th,td {border:1px solid var(--line);padding:9px;vertical-align:top}
+th {background:#eef3f8}
+.q {border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0;background:white}
+.q label {display:block;margin:6px 0}
+.bad {color:var(--bad);font-weight:700}
+.good {color:var(--ok);font-weight:700}
+.warningText {color:var(--warn);font-weight:700}
+.lines {height:58px;border-bottom:1px solid #999}
+footer {padding:30px;text-align:center;color:var(--muted)}
+
+.skip-link{position:absolute;left:-999px;top:8px;background:#fff;color:#000;padding:10px 14px;border-radius:10px;z-index:999}
+.skip-link:focus{left:12px;outline:3px solid #111}
+.meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
+.meta-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+.meta-card strong{display:block;color:var(--accent);margin-bottom:4px}
+.sciencebox{background:#f8f4ff;border:1px solid #c9b5ef;border-left:6px solid #66509a;border-radius:14px;padding:14px;margin:14px 0}
+.rubric{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:14px 0}
+.source-list{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:14px;margin:14px 0}
+.legal-caution{background:#fff3f3;border:1px solid #e3a5a5;border-left:6px solid var(--bad);border-radius:14px;padding:14px;margin:14px 0}
+@media(max-width:900px){.meta-grid{grid-template-columns:1fr}}
+
+@media(max-width:900px){
+ .layout {grid-template-columns:1fr;padding:10px}
+ nav {position:relative;top:auto}
+}
+@media print {
+ .printcard {break-inside:avoid; page-break-inside:avoid; margin-top:18px}
+ nav,.controls,button,.progress,#sendStatus {display:none!important}
+ body {background:white}
+ .layout {display:block;padding:0}
+ .card {box-shadow:none;border:0;page-break-inside:avoid}
+ .section {display:block!important}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#sections">Zum Inhalt springen</a>
+<header>
+<p>SOL-Lernpfad Schulsozialarbeit Niedersachsen</p>
+<h1>Band 4, Modul 4: Krisenintervention, Dokumentation und Kooperation mit Jugendhilfe</h1>
+<p>Abschlussmodul von Band 4. Fokus: Krisenampel, Kooperation, Übergabe, Dokumentation, digitale Krisen, Nachsorge und lokale Verfahrenssicherheit im schulischen Kontext Niedersachsens, mit besonderem Praxisbezug Landkreis Emsland.</p>
+<div class="header-submit-controls" aria-label="Teilnehmendendaten und Ergebnisübermittlung">
+<label>Name<input id="learnerName" placeholder="Name" autocomplete="name"></label>
+<label>E-Mail<input id="userEmail" type="email" placeholder="name@example.de" autocomplete="email"></label>
+<label class="checkline"><input id="privacyConfirm" type="checkbox"> Ich bestätige, dass keine identifizierenden Falldaten eingetragen werden und die Übermittlung der Lerndaten an Google Sheets erfolgen darf.</label>
+<button class="secondary" onclick="saveNow()">Zwischenspeichern</button>
+<button onclick="sendData()">Absenden</button>
+<span id="sendStatusHeader" class="header-send-status" aria-live="polite"></span>
+</div>
+</header>
+<div class="layout" id="layout">
+<nav id="nav" aria-label="Modulnavigation">
+<strong>Navigation</strong>
+<div class="progress" role="progressbar" aria-label="Bearbeitungsfortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="bar"></div></div>
+<p id="progressText">0 / 12 abgeschlossen</p>
+<p class="hint" style="font-size:.92rem;margin:8px 0">Gesperrte Abschnitte werden nach Abschluss des vorherigen Abschnitts freigeschaltet.</p>
+<div id="navButtons"></div>
+</nav>
+<main>
+<div class="controls">
+<button onclick="toggleNav()">Navigation ein/aus</button>
+<button class="secondary" onclick="resetProgress()">Fortschritt zurücksetzen</button>
+<button class="secondary" onclick="window.print()">Drucken / PDF</button>
+</div>
+<div id="sections"></div>
+</main>
+</div>
+<footer>Hinweis: Dieses Modul ersetzt keine lokale Dienstanweisung, keine Rechtsberatung und keine Einzelfallentscheidung. Es trainiert fachliche Orientierung und verweist auf aktuelle lokale Verfahrenswege.</footer>
+<script>
+const APP_PUBLIC_URL = "https://script.google.com/macros/s/AKfycbxpuKRAj4qQ7tKQ8l5Qm3xCbclHwoEpMqHELr9i8QK9MqQpcY5x2R-uQ80YLgnHdoHD/exec";
+const MODULE_ID = "B4M4_V3";
+const SECTION_HTML = ["\n<div class=\"theory\">\n<h2>Worum es in diesem Abschlussmodul geht</h2>\n<div class=\"meta-grid\">\n <div class=\"meta-card\"><strong>Workload</strong>90 bis 120 Minuten Selbstlernzeit plus 30 Minuten Transfer- oder Teamarbeit.</div>\n <div class=\"meta-card\"><strong>Voraussetzung</strong>Band 4.1 Grundlagen/Haltung, Band 4.2 gewichtige Anhaltspunkte, Band 4.3 Vorgehen im Verdachtsfall.</div>\n <div class=\"meta-card\"><strong>Prüfungsleistung</strong>Gelingensnachweis, lokaler Verfahrenscheck, Krisen- und Übergabeprotokoll, Transferfall.</div>\n <div class=\"meta-card\"><strong>Kompetenzniveau</strong>Anwendungs- und Entscheidungskompetenz für Krisenlagen im schulischen Kontext.</div>\n <div class=\"meta-card\"><strong>Anschluss</strong>Band 5: Konflikte, Gewalt und Mobbing.</div>\n <div class=\"meta-card\"><strong>Praxisprodukt</strong>Standortbezogener Krisenplan mit Dokumentations- und Übergabelogik.</div>\n</div>\n<div class=\"sciencebox\">\n<strong>Wissenschaftsbox: Krise ist eine Systemlage, nicht nur ein Gesprächsproblem.</strong>\n<p>Krisenintervention in der Schulsozialarbeit verbindet Beziehung, Schutz, Rollenklarheit, Verfahrenssicherheit und Kooperation. Fachlich entscheidend ist nicht möglichst viel Aktion, sondern die begründete Entscheidung, welche Informationen erforderlich sind, wer zuständig ist, wie Schutz hergestellt wird und wie die Anschlussverantwortung dokumentiert bleibt.</p>\n</div>\n<div class=\"legal-caution\">\n<strong>Rechtlicher Vorsichtshinweis:</strong> Dieses Modul ist ein Qualifizierungs- und Trainingsmodul. Es ersetzt keine lokale Dienstanweisung, keine Rechtsberatung und keine einzelfallbezogene Entscheidung durch zuständige Stellen. Maßgeblich sind die aktuelle Rechtslage, schulische Schutzkonzepte, Dienstwege, Vereinbarungen mit Jugendhilfe und die örtliche Krisen-/Notfallstruktur.\n</div>\n\n<p>Dieses Modul schließt Band 4 ab. Es wiederholt nicht ausführlich die Inhalte aus Modul 4.1 bis 4.3, sondern führt sie für Krisenintervention, Dokumentation und Kooperation zusammen.</p>\n\n<div class=\"linebox\">\n<strong>Roter Faden der bisherigen Module:</strong>\n<ul>\n<li><strong>Band 1:</strong> Schulsozialarbeit bleibt sozialpädagogisch, nicht ordnungs-, straf- oder ermittlungslogisch.</li>\n<li><strong>Band 2:</strong> Datenschutz, Schweigepflicht, Erforderlichkeit und Dokumentation bleiben handlungsleitend.</li>\n<li><strong>Band 3:</strong> Gesprächsführung bleibt transparent, beteiligend und nicht suggestiv.</li>\n<li><strong>Band 4.1:</strong> Kinderschutz beginnt mit Haltung, Schutzlogik und sauberer Rolle.</li>\n<li><strong>Band 4.2:</strong> Hinweise werden sortiert, verdichtet und fachlich eingeordnet.</li>\n<li><strong>Band 4.3:</strong> Bei Verdacht braucht es Verfahren, Fachberatung, Dokumentation und lokale Wege.</li>\n<li><strong>Band 4.4:</strong> In Krisen steht jetzt Schutz, Kooperation, Übergabe, Nachsorge und Verfahrenssicherheit im Mittelpunkt.</li>\n</ul>\n</div>\n\n<div class=\"nds\">\n<strong>Niedersachsen / Emsland:</strong> Dieses Modul setzt den Schwerpunkt auf schulische Sozialarbeit in Niedersachsen und den regionalen Praxisbezug Emsland. Es nennt keine dauerhaft gültigen Telefonnummern oder Zuständigkeitsbehauptungen. Die jeweils aktuelle Kooperationsvereinbarung, Meldebögen, Checklisten, Ablaufschemata, Notfallwege und schulischen Schutzkonzepte müssen am eigenen Standort geprüft werden.\n</div>\n</div>\n\n<div class=\"task\">\n<label for=\"t1\">Pflichtaufgabe: Beschreiben Sie, warum dieses Modul nicht einfach Modul 4.3 wiederholt, sondern den Blick auf Krise, Übergabe, Kooperation und Nachsorge erweitert.</label>\n<textarea id=\"t1\" data-required=\"true\" data-min=\"220\"></textarea>\n<button onclick=\"saveField('t1'); analyzeText('t1')\">Antwort prüfen</button>\n<div id=\"analysis_t1\" class=\"analysis\"></div>\n<button onclick=\"showSolution('s1')\">Musterlösung anzeigen</button>\n<div id=\"s1\" class=\"solution hidden\">Modul 4.3 behandelt das Vorgehen im Verdachtsfall. Modul 4.4 bündelt, was passiert, wenn die Lage krisenhaft wird oder mehrere Stellen koordiniert handeln müssen: Sicherheit herstellen, lokale Emsland-Verfahrenswege prüfen, Fachberatung oder Jugendhilfe strukturiert einbinden, sensible Informationen datenschutzkonform übergeben, die betroffene Schülerin oder den betroffenen Schüler nachsorgen und Entscheidungen nachvollziehbar dokumentieren.</div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Krisenampel als schnelle Orientierung</h2>\n<p>Die Ampel ersetzt keine Fachberatung. Sie hilft, nicht zu verharmlosen und nicht zu dramatisieren.</p>\n<table>\n<tr><th>Lage</th><th>Bedeutung</th><th>Handlung</th></tr>\n<tr><td><strong>Grün</strong></td><td>belastende Situation, aber keine erkennbare akute Gefahr</td><td>Beratung, Beobachtung, Dokumentation, ggf. nächster Termin</td></tr>\n<tr><td><strong>Gelb</strong></td><td>erhebliche Sorge, Verdichtung, Unsicherheit oder unklare Schutzlage</td><td>Leitung/Fachberatung nach lokalem Verfahren prüfen, dokumentieren, nächsten Schritt festlegen</td></tr>\n<tr><td><strong>Rot</strong></td><td>akute Selbst-/Fremdgefährdung oder unmittelbarer Schutzbedarf</td><td>nicht allein handeln, Notfallweg, Schutz organisieren, erforderliche Information weitergeben, dokumentieren</td></tr>\n</table>\n<div class=\"linebox\"><strong>Abgrenzung:</strong> Grün ist nicht „egal“. Gelb ist nicht automatisch Meldung. Rot ist keine normale Beratung mehr.</div>\n</div>\n\n<div class=\"task\">\n<label for=\"sel2\">Fall: Ein Schüler sagt nach einem Streit: „Ich halte das nicht mehr aus“, wirkt aber ansprechbar, verneint akute Selbstgefährdung, möchte morgen wiederkommen. Welche Ampel ist zunächst am ehesten passend?</label>\n<select id=\"sel2\" data-required=\"true\">\n<option value=\"\">Bitte wählen</option>\n<option>Grün, normale Entlastung und Termin möglich</option>\n<option>Gelb, weil Belastung und weiterer Klärungsbedarf bestehen</option>\n<option>Rot, immer sofort Notfallweg</option>\n<option>kein Thema für Schulsozialarbeit</option>\n</select>\n<button onclick=\"checkSelect('sel2','Gelb, weil Belastung und weiterer Klärungsbedarf bestehen','fb2')\">Auswahl prüfen</button>\n<div id=\"fb2\" class=\"feedback\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Schulische Ereignisse sauber einordnen</h2>\n<p>Schule vermischt schnell Ordnungslogik, Krisenlogik und Kinderschutzlogik. Schulsozialarbeit muss hier sortieren, ohne vorschnell eine Schublade zu wählen.</p>\n<table>\n<tr><th>Situation</th><th>Nicht vorschnell einordnen als</th><th>Fachlich zuerst prüfen</th></tr>\n<tr><td>Schüler schreit Lehrkraft an</td><td>Kinderschutzfall</td><td>Eskalation, Belastung, Fremdgefährdung, Gesprächsstruktur</td></tr>\n<tr><td>Kind kommt ohne Frühstück</td><td>gesicherte Vernachlässigung</td><td>Häufigkeit, Kontext, Schutzfaktoren, weitere Hinweise</td></tr>\n<tr><td>Eltern drohen mit Beschwerde</td><td>Krise</td><td>Deeskalation, Rollenklärung, Gesprächsrahmen</td></tr>\n<tr><td>Kind äußert Suizidgedanken</td><td>normales Beratungsthema</td><td>akute Krise, Schutzbedarf, Notfallweg</td></tr>\n<tr><td>intime Bilder werden erpresst</td><td>Medienkonflikt</td><td>digitale Gefährdung, Schutzlogik, keine Beweissicherung durch Schule</td></tr>\n</table>\n</div>\n\n<div class=\"task\">\n<label for=\"t3\">Pflichtaufgabe: Wählen Sie eine der Situationen und erklären Sie, welche falsche Einordnung gefährlich wäre und welche erste fachliche Sortierung angemessen ist.</label>\n<textarea id=\"t3\" data-required=\"true\" data-min=\"260\"></textarea>\n<button onclick=\"saveField('t3'); analyzeText('t3')\">Antwort prüfen</button>\n<div id=\"analysis_t3\" class=\"analysis\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Lokaler Verfahrenscheck</h2>\n<p>Der Emsland-Bezug wird nur dann praktisch, wenn die Unterlagen nicht abstrakt bekannt sind, sondern am Schulstandort auffindbar und aktuell sind.</p>\n<div class=\"warn\">\n<strong>Wichtig:</strong> Dieses Modul behauptet nicht, dass an jeder Schule dieselben Abläufe, Telefonnummern oder Zuständigkeiten gelten. Es zwingt zur lokalen Prüfung.\n</div>\n</div>\n\n<div class=\"task\">\n<label for=\"t4\">Pflichtaufgabe: Füllen Sie den lokalen Verfahrenscheck für Ihre Schule / Ihren Praktikumsort aus. Unbekannte Punkte markieren Sie ausdrücklich als Klärungsauftrag.</label>\n<textarea id=\"t4\" data-required=\"true\" data-min=\"450\" placeholder=\"Schutzkonzept liegt hier:\nMeldebogen liegt hier:\nCheckliste liegt hier:\nAblaufschema liegt hier:\ninterne Ansprechperson:\nVertretung:\nzuständiger Jugendhilfeweg / ASD / Fachdienst:\nNotfallweg außerhalb der Schulzeit:\nsicherer Dokumentationsort:\nDatum der letzten Prüfung:\noffene Klärungsaufträge:\"></textarea>\n<button onclick=\"saveField('t4'); analyzeText('t4')\">Antwort prüfen</button>\n<div id=\"analysis_t4\" class=\"analysis\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Vorsichtig, klar, nicht allein</h2>\n<p>Suizidäußerungen werden nicht bagatellisiert und nicht allein im normalen Beratungsgespräch belassen. Schulsozialarbeit klärt nicht allein die Gefährdungstiefe. Sie sorgt für Sicherheit, Einbindung zuständiger Personen und geeignete Krisen-/Notfallwege nach lokalem Verfahren.</p>\n<div class=\"linebox\">\n<strong>Fachliche Grenze:</strong> Beziehung halten, aber keine absolute Geheimhaltung versprechen. Ruhe bewahren, aber nicht allein tragen.\n</div>\n</div>\n\n<div class=\"task\">\n<label for=\"t5\">Pflichtaufgabe: Formulieren Sie eine Antwort an eine Schülerin, die sagt: „Ich will nicht mehr leben, aber sagen Sie das niemandem.“</label>\n<textarea id=\"t5\" data-required=\"true\" data-min=\"260\"></textarea>\n<button onclick=\"saveField('t5'); analyzeText('t5')\">Antwort prüfen</button>\n<div id=\"analysis_t5\" class=\"analysis\"></div>\n<button onclick=\"showSolution('s5')\">Musterlösung anzeigen</button>\n<div id=\"s5\" class=\"solution hidden\">„Danke, dass du mir das sagst. Ich nehme das sehr ernst. Ich verspreche dir nicht, dass ich es für mich behalten kann, weil es um deine Sicherheit geht. Ich bleibe jetzt bei dir und hole mir Unterstützung, damit wir gemeinsam den nächsten sicheren Schritt klären.“</div>\n</div>\n", "\n<div class=\"case\">\n<h2>Fall Mira</h2>\n<p>Mira, Klasse 8, berichtet, dass ein älterer Jugendlicher intime Bilder von ihr fordert und droht, Chatverläufe oder Bilder zu veröffentlichen. Sie hat Angst, dass die Klasse davon erfährt.</p>\n</div>\n<div class=\"theory\">\n<h2>Was jetzt nicht passieren darf</h2>\n<ul>\n<li>keine Screenshots auf privaten Geräten sammeln</li>\n<li>keine intimen Bilder weiterleiten</li>\n<li>keine Befragung der Klassengruppe</li>\n<li>keine eigenständige Täterermittlung</li>\n<li>keine Veröffentlichung oder Verbreitung „zur Beweissicherung“</li>\n<li>keine vorschnelle Information an ungeeignete Verteiler</li>\n</ul>\n</div>\n\n<div class=\"task\">\n<label for=\"t6\">Pflichtaufgabe: Beschreiben Sie das Vorgehen im Fall Mira mit Blick auf Schutz, Datenschutz, Fachberatung, Kindbeteiligung und Emsland-Verfahrensweg.</label>\n<textarea id=\"t6\" data-required=\"true\" data-min=\"420\"></textarea>\n<button onclick=\"saveField('t6'); analyzeText('t6')\">Antwort prüfen</button>\n<div id=\"analysis_t6\" class=\"analysis\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>90-Sekunden-Fachberatung</h2>\n<p>In der Krise muss ein Fall knapp, sachlich und verwertbar geschildert werden. Nicht alles, was bekannt ist, muss sofort erzählt werden. Entscheidend ist die konkrete Beratungsfrage.</p>\n<table>\n<tr><th>Baustein</th><th>Leitfrage</th></tr>\n<tr><td>Anlass</td><td>Warum rufe ich an?</td></tr>\n<tr><td>gesicherte Hinweise</td><td>Was ist beobachtet oder wörtlich gesagt?</td></tr>\n<tr><td>akute Gefahr</td><td>ja, nein oder unklar?</td></tr>\n<tr><td>Schutzfaktoren</td><td>Was stabilisiert aktuell?</td></tr>\n<tr><td>bisherige Schritte</td><td>Was wurde bereits getan?</td></tr>\n<tr><td>Beratungsfrage</td><td>Was soll jetzt fachlich geklärt werden?</td></tr>\n</table>\n</div>\n\n<div class=\"task\">\n<label for=\"t7\">Pflichtaufgabe: Formulieren Sie eine 90-Sekunden-Fallschilderung für Fachberatung oder Jugendhilfeweg im Emsland. Arbeiten Sie sachlich und ohne Spekulation.</label>\n<textarea id=\"t7\" data-required=\"true\" data-min=\"420\"></textarea>\n<button onclick=\"saveField('t7'); analyzeText('t7')\">Antwort prüfen</button>\n<div id=\"analysis_t7\" class=\"analysis\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Übergabe bedeutet nicht: alles erzählen</h2>\n<p>Eine Übergabe muss erforderlich, sachlich, nachvollziehbar und zuständigkeitsklar sein. Sie schützt vor Informationsverlust und vor zu breiter Weitergabe.</p>\n\n<div class=\"printcard\">\n<h3>Druckformular: Übergabeprotokoll</h3>\n<p><strong>Übergabe an:</strong> ___________________________</p>\n<p><strong>Datum / Uhrzeit:</strong> ___________________________</p>\n<p><strong>Anlass:</strong> ___________________________</p>\n<p><strong>Akute Gefahr:</strong> ☐ nein ☐ unklar ☐ ja</p>\n<p><strong>Übermittelte Informationen:</strong></p><p class=\"lines\"></p>\n<p><strong>Nicht übermittelte vertrauliche Inhalte:</strong></p><p class=\"lines\"></p>\n<p><strong>Rechts-/Verfahrensgrundlage / lokaler Weg:</strong></p><p class=\"lines\"></p>\n<p><strong>Vereinbarter nächster Schritt:</strong></p><p class=\"lines\"></p>\n<p><strong>Wer hält nach?</strong></p><p class=\"lines\"></p>\n</div>\n</div>\n\n<div class=\"task\">\n<label for=\"t8\">Pflichtaufgabe: Erstellen Sie eine kurze Übergabe für einen Krisenfall. Benennen Sie ausdrücklich, welche Informationen erforderlich sind und welche nicht breit weitergegeben werden.</label>\n<textarea id=\"t8\" data-required=\"true\" data-min=\"360\"></textarea>\n<button onclick=\"saveField('t8'); analyzeText('t8')\">Antwort prüfen</button>\n<div id=\"analysis_t8\" class=\"analysis\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Typische Fehler in Krisenlagen</h2>\n<table>\n<tr><th>Fehler</th><th>Risiko</th><th>Bessere Richtung</th></tr>\n<tr><td>„Ich kläre das morgen.“</td><td>akute Gefahr wird verschleppt</td><td>Akutlage prüfen, Schutzweg nutzen</td></tr>\n<tr><td>„Ich frage erst die ganze Klasse.“</td><td>Datenschutz, Gerüchte, Retraumatisierung</td><td>keine Gruppenermittlung, fachlich sortieren</td></tr>\n<tr><td>„Ich schicke Screenshots an die Leitung.“</td><td>sensible Daten werden verbreitet</td><td>sicheren Dokumentations- und Beratungsweg klären</td></tr>\n<tr><td>„Ich verspreche absolute Geheimhaltung.“</td><td>Schutzlogik wird blockiert</td><td>begrenzte Vertraulichkeit transparent erklären</td></tr>\n<tr><td>„Ich rufe sofort die Eltern an.“</td><td>mögliche Gefährdung kann steigen</td><td>Elternbeteiligung fachlich abwägen</td></tr>\n</table>\n</div>\n\n<div class=\"task\">\n<label for=\"t9\">Pflichtaufgabe: Wählen Sie zwei Fehler aus und formulieren Sie jeweils eine fachlich saubere Alternative.</label>\n<textarea id=\"t9\" data-required=\"true\" data-min=\"320\"></textarea>\n<button onclick=\"saveField('t9'); analyzeText('t9')\">Antwort prüfen</button>\n<div id=\"analysis_t9\" class=\"analysis\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Schutz endet nicht mit der Übergabe</h2>\n<p>Nach einer Krise braucht die betroffene Schülerin oder der betroffene Schüler eine schulische Anschlussklärung. Diese Nachsorge ersetzt keine Therapie und keine Jugendhilfeleistung. Sie hält im System Schule im Blick, ob der vereinbarte Schutz wirkt.</p>\n<ul>\n<li>Wer ist am nächsten Schultag Ansprechperson?</li>\n<li>Gibt es einen sicheren Raum oder eine klare Rückzugsmöglichkeit?</li>\n<li>Was weiß die Klassenleitung, ohne vertrauliche Details?</li>\n<li>Wie wird Stigmatisierung in Klasse, Ganztag und Pause vermieden?</li>\n<li>Was passiert auf Schulweg, im Ganztag oder in digitalen Klassengruppen?</li>\n<li>Wer prüft, ob der nächste Schritt umgesetzt wurde?</li>\n</ul>\n</div>\n\n<div class=\"task\">\n<label for=\"t10\">Pflichtaufgabe: Entwickeln Sie einen Nachsorgeplan für eine Schülerin oder einen Schüler nach einer Krise.</label>\n<textarea id=\"t10\" data-required=\"true\" data-min=\"380\"></textarea>\n<button onclick=\"saveField('t10'); analyzeText('t10')\">Antwort prüfen</button>\n<div id=\"analysis_t10\" class=\"analysis\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Druckbare Praxisformulare</h2>\n<div class=\"printcard\">\n<h3>Krisen- und Kooperationsprotokoll Niedersachsen / Emsland</h3>\n<p><strong>Datum / Uhrzeit:</strong> ___________________________</p>\n<p><strong>Kind / Klasse:</strong> ___________________________</p>\n<p><strong>Anlass:</strong> ___________________________</p>\n<p><strong>Krisenampel:</strong> ☐ Grün ☐ Gelb ☐ Rot</p>\n<p><strong>Akute Gefahr?</strong> ☐ nein ☐ unklar ☐ ja</p>\n<p><strong>Gesicherte Beobachtungen / wörtliche Aussagen:</strong></p><p class=\"lines\"></p>\n<p><strong>Risiken:</strong></p><p class=\"lines\"></p>\n<p><strong>Schutzfaktoren:</strong></p><p class=\"lines\"></p>\n<p><strong>Einbezogene Personen / Stellen:</strong></p><p class=\"lines\"></p>\n<p><strong>Lokaler Emsland-Verfahrensweg / Unterlage genutzt:</strong></p><p class=\"lines\"></p>\n<p><strong>Nächster überprüfbarer Schritt:</strong></p><p class=\"lines\"></p>\n</div>\n</div>\n\n<div class=\"task\">\n<label for=\"t11\">Pflichtaufgabe: Bereiten Sie eine dokumentationsfähige Krisennotiz vor. Nutzen Sie Beobachtung, wörtliche Aussage, Risiko, Schutzfaktor, Verfahrensweg und nächsten Schritt.</label>\n<textarea id=\"t11\" data-required=\"true\" data-min=\"420\"></textarea>\n<button onclick=\"saveField('t11'); analyzeText('t11')\">Antwort prüfen</button>\n<div id=\"analysis_t11\" class=\"analysis\"></div>\n</div>\n", "\n<div class=\"theory\">\n<h2>Gelingensnachweis</h2>\n<p>Beantworten Sie die Fragen. Danach verfassen Sie den Transferauftrag. Das Zertifikat wird erst freigeschaltet, wenn alle Abschnitte abgeschlossen, mindestens 80 % im Quiz erreicht und der Transferauftrag ausreichend bearbeitet wurde.</p>\n<div id=\"quiz\"></div>\n<button onclick=\"gradeQuiz()\">Gelingensnachweis auswerten</button>\n<div id=\"quizResult\" class=\"feedback\"></div>\n</div>\n\n<div class=\"task\">\n<label for=\"transfer\">Transferauftrag: Bearbeiten Sie einen Krisen- oder Kooperationsfall aus Schule, Praktikum oder Fallbeispiel. Stellen Sie dar: Anlass, Krisenampel, Krisenart, akute Gefahr, gesicherte Hinweise, Schutzfaktoren, Beteiligung des Kindes, Elternbeteiligung, Fachberatung/Jugendhilfeweg, lokaler Emsland-Verfahrenscheck, Datenschutz/digitale Ablage, Übergabe, Nachsorge für Schüler:innen, Dokumentation und nächster überprüfbarer Schritt. Mindestlänge: 2200 Zeichen.</label>\n<textarea id=\"transfer\" data-required=\"true\" data-min=\"2200\"></textarea>\n<button onclick=\"saveField('transfer'); analyzeText('transfer'); updateCertificate()\">Transfer prüfen</button>\n<div id=\"analysis_transfer\" class=\"analysis\"></div>\n</div>\n\n<div id=\"competence\" class=\"competence\"></div>\n\n<div id=\"certificate\" class=\"certificate hidden\">\n<h2>Abschlussnachweis</h2>\n<p>Der Lernpfad <strong>Band 4, Modul 4: Krisenintervention, Dokumentation und Kooperation mit Jugendhilfe</strong> wurde erfolgreich bearbeitet.</p>\n<p>Name: <span id=\"certName\">________________</span></p>\n<p>Datum: <span id=\"certDate\"></span></p>\n<button onclick=\"window.print()\">Drucken / als PDF speichern</button>\n</div>\n\n<button onclick=\"exportData()\">Bearbeitung exportieren</button>\n<button onclick=\"sendData()\">An Google Sheets senden</button>\n\n<div class=\"sciencebox\">\n<h3>Methodenkoffer: KRISEN-SAFE</h3>\n<table>\n<tr><th>Schritt</th><th>Leitfrage</th></tr>\n<tr><td><strong>K</strong>lären</td><td>Was ist konkret passiert, was ist gesichert, was ist unklar?</td></tr>\n<tr><td><strong>R</strong>isiko einordnen</td><td>Grün, Gelb oder Rot? Akute Selbst- oder Fremdgefährdung?</td></tr>\n<tr><td><strong>I</strong>nformation begrenzen</td><td>Welche Information ist für Schutz und Verfahren erforderlich?</td></tr>\n<tr><td><strong>S</strong>chutz organisieren</td><td>Wer muss jetzt beteiligt werden, damit niemand allein bleibt?</td></tr>\n<tr><td><strong>E</strong>rgebnis dokumentieren</td><td>Welche Entscheidung, welcher Wortlaut, welcher nächste Schritt?</td></tr>\n<tr><td><strong>N</strong>achsorge sichern</td><td>Wer prüft morgen, ob Schutz und Anschluss funktionieren?</td></tr>\n<tr><td><strong>SAFE</strong></td><td>Sicherheit, Anschluss, Fachberatung, Erforderlichkeit.</td></tr>\n</table>\n</div>\n<div class=\"rubric\">\n<h3>Bewertungsraster für Hochschule und Weiterbildung</h3>\n<table>\n<tr><th>Kriterium</th><th>0 Punkte</th><th>1 Punkt</th><th>2 Punkte</th></tr>\n<tr><td>Kriseneinordnung</td><td>Ampel fehlt oder wird schematisch falsch genutzt.</td><td>Ampel wird genannt, aber unklar begründet.</td><td>Ampel wird anhand gesicherter Hinweise, Risiko und Schutzfaktoren begründet.</td></tr>\n<tr><td>Kooperation</td><td>Zuständigkeiten werden vermischt.</td><td>Jugendhilfe oder Leitung werden erwähnt.</td><td>Rollen, lokale Verfahren, Fachberatung und Übergabe sind nachvollziehbar getrennt.</td></tr>\n<tr><td>Datenschutz</td><td>Informationen werden pauschal weitergegeben oder absolut geheim gehalten.</td><td>Datenschutz wird allgemein genannt.</td><td>Erforderlichkeit, Zweckbindung, Rückmeldegrenzen und Dokumentation sind klar.</td></tr>\n<tr><td>Dokumentation</td><td>Bewertungen statt Beobachtungen.</td><td>Einige sachliche Daten vorhanden.</td><td>Wortlaut, Zeitpunkt, Beteiligte, Risiko, Schutzfaktoren und nächster Schritt sind dokumentationsfähig.</td></tr>\n<tr><td>Nachsorge</td><td>Übergabe beendet den Fall.</td><td>Nachsorge wird erwähnt.</td><td>Ansprechperson, sicherer Raum, Klassen-/Ganztagsanschluss und Nachhalten sind geregelt.</td></tr>\n</table>\n<p><strong>Empfehlung:</strong> 7 von 10 Punkten als Mindeststandard; 9 bis 10 Punkte für hochschulnahes Niveau.</p>\n</div>\n<div class=\"source-list\">\n<h3>Literatur und Quellenhinweise, Stand 09.06.2026</h3>\n<ul>\n<li>SGB VIII § 8a: Schutzauftrag bei Kindeswohlgefährdung.</li>\n<li>SGB VIII § 8b: fachliche Beratung und Begleitung zum Schutz von Kindern und Jugendlichen.</li>\n<li>KKG § 4: Beratung und Übermittlung von Informationen durch Geheimnisträger bei Kindeswohlgefährdung.</li>\n<li>Niedersächsisches Kultusministerium / RLSB: Soziale Arbeit in schulischer Verantwortung.</li>\n<li>DBSH: Berufsethik und professionelle Verantwortung Sozialer Arbeit.</li>\n<li>Kooperationsverbund Schulsozialarbeit: fachliche Leitlinien und Qualitätsentwicklung.</li>\n</ul>\n</div>\n<div class=\"nds\">\n<h3>Ausblick auf Band 5</h3>\n<p>Nach Band 4 wechselt der Schwerpunkt von Kinderschutz, Krise und Gefährdung zu <strong>Band 5: Konflikte, Gewalt und Mobbing</strong>. Dort geht es stärker um Prävention, Intervention, Gruppenprozesse, Gewaltformen, Mobbingdynamiken und schulische Schutz- und Beteiligungskultur.</p>\n</div>\n\n<div id=\"sendStatus\" class=\"feedback\"></div>\n"];
+const SECTION_TITLES = ["1. Einstieg: Abschlussmodul Band 4", "2. Krisenampel: Grün, Gelb, Rot", "3. Krise, Kinderschutz oder Ordnungsfall?", "4. Verbindlicher Emsland-Verfahrenscheck", "5. Suizidäußerung und akute Selbstgefährdung", "6. Digitale Krise: Schutz statt Beweissicherung", "7. Kooperationsgespräch mit Jugendhilfe simulieren", "8. Übergabeprotokoll", "9. Fehlerwerkstatt: Krise falsch bearbeitet", "10. Nachsorge für Schüler:innen nach Krise", "11. Praxisformulare und Dokumentation", "12. Abschluss: Gelingensnachweis und Transfer"];
+const QUIZ = [["Was beschreibt die Krisenampel Gelb?", ["erhebliche Sorge oder Unsicherheit mit Fachberatungsbedarf", "normale Situation ohne Handlungsbedarf", "immer sofort Polizei", "ausschließlich Ordnungsmaßnahme"], 0], ["Was bedeutet Rot in der Krisenampel?", ["akute Gefahr oder unmittelbarer Schutzbedarf", "normaler Beratungsbedarf", "nur Dokumentation ohne Handlung", "Zuständigkeit der Klassenleitung allein"], 0], ["Welche Aussage passt zur Linie der bisherigen Module?", ["Schulsozialarbeit stabilisiert, dokumentiert und kooperiert, ermittelt aber nicht", "Schulsozialarbeit ersetzt Jugendamt und Polizei", "Datenschutz ist in Krise bedeutungslos", "Eltern werden immer sofort konfrontiert"], 0], ["Was ist bei Suizidäußerung fachlich richtig?", ["nicht allein lassen und Schutz-/Notfallweg prüfen", "absolute Geheimhaltung versprechen", "nächsten Monat Termin geben", "nur Klassenarbeit verschieben"], 0], ["Was ist bei digitaler Erpressung mit intimen Bildern falsch?", ["Bilder zur Beweissicherung weiterleiten", "Schutz organisieren", "Fachberatung prüfen", "keine Gruppenermittlung"], 0], ["Was muss im Emsland-Kontext konkret geprüft werden?", ["aktuelle lokale Unterlagen und Zuständigkeitswege der Schule", "eine allgemeine Internetmeinung", "private Chatgruppe", "alte Unterlagen ohne Prüfung"], 0], ["Was gehört in eine 90-Sekunden-Fachberatung?", ["Anlass, gesicherte Hinweise, Risiko, Schutzfaktoren und Beratungsfrage", "möglichst viele Gerüchte", "alle privaten Eindrücke", "vollständige Schuldzuweisung"], 0], ["Was ist eine passende Übergabe?", ["erforderlich, sachlich, zuständigkeitsklar und dokumentiert", "maximal breit an alle", "informell per Messenger", "ohne nächsten Schritt"], 0], ["Warum ist die Nachsorge für Schüler:innen wichtig?", ["weil Schutzwirkung und Anschluss im Schulsystem geprüft werden müssen", "weil damit Jugendhilfe ersetzt wird", "weil damit alles erledigt ist", "weil Details in der Klasse geklärt werden"], 0], ["Was ist bei Elternbeteiligung in Krisen wichtig?", ["vorher fachlich abwägen, ob Kontakt schützt oder gefährdet", "immer sofort anrufen", "nie einbeziehen", "Kind entscheidet allein"], 0], ["Welche Dokumentation ist am besten?", ["konkrete Beobachtung und wörtliche Aussage", "Familie schwierig", "Kinderschutzfall fertig", "Eltern lügen"], 0], ["Was ist ein Fehler in Krisenlagen?", ["Ich kläre das allein und dokumentiere vielleicht später", "Fachberatung einbeziehen", "Akutgefahr prüfen", "Schutzfaktoren erfassen"], 0], ["Was ist keine Aufgabe der Schulsozialarbeit?", ["Beweise sichern und Täter ermitteln", "Kind beteiligen", "sachlich dokumentieren", "lokalen Verfahrensweg nutzen"], 0], ["Was bedeutet Erforderlichkeit bei Informationsweitergabe?", ["nur so viel wie nötig für Schutz und Verfahren", "alles an alle", "nichts trotz Gefahr", "alles, was interessant ist"], 0], ["Welche Situation ist nicht automatisch Kinderschutz?", ["einmal ohne Frühstück", "konkrete Gewaltandrohung", "akute Suizidäußerung", "digitale Erpressung mit intimen Bildern"], 0], ["Was sollte bei informeller Weitergabe vermieden werden?", ["private Messenger, Verteiler und Cloudspeicher", "gesicherte Dokumentation", "Fachberatung", "zuständiger Verfahrensweg"], 0], ["Was gehört zur Nachsorge im Team?", ["Belastung, Zuständigkeiten, Unsicherheit und nächster Schritt", "Schuldfrage im Kollegium", "private Details verbreiten", "Fall vergessen"], 0], ["Was ist bei der Klassenleitung nach einer Krise sinnvoll?", ["erforderliche Informationen ohne vertrauliche Details klären", "alle Gesprächsinhalte weitergeben", "nichts sagen, auch wenn Schutz betroffen ist", "Klasse befragen lassen"], 0], ["Wie wird eine Krise nicht unnötig dramatisiert?", ["durch Ampel, gesicherte Hinweise, Schutzfaktoren und Fachberatung", "durch Bauchgefühl allein", "durch Gerüchte", "durch sofortige öffentliche Ansprache"], 0], ["Was ist bei lokalen Emsland-Unterlagen zentral?", ["Aktualität, Auffindbarkeit und Zuständigkeit prüfen", "ungeprüft kopieren", "durch eigene Liste ersetzen", "nur mündlich kennen"], 0], ["Was ist bei akuter Gefahr falsch?", ["warten, bis alle Formulare vollständig sind", "Schutz organisieren", "Notfallweg prüfen", "Leitung einbeziehen"], 0], ["Was ist eine gute Formulierung an ein Kind in Krise?", ["Ich nehme dich ernst und hole Unterstützung, damit wir sicher weitergehen.", "Ich verspreche, dass niemand etwas erfährt.", "Du musst das beweisen.", "Das klären wir irgendwann."], 0], ["Was wird durch ein Übergabeprotokoll verbessert?", ["Nachvollziehbarkeit, Zuständigkeit und erforderliche Informationsweitergabe", "maximale Verbreitung", "private Speicherung", "Entfall der Dokumentation"], 0], ["Was bedeutet Krise vs. Ordnungsfall?", ["zuerst fachlich sortieren, ob Schutz, Eskalation oder schulische Regelverletzung im Vordergrund steht", "immer Ordnungsmaßnahme", "immer Jugendamt", "immer Polizei"], 0], ["Was ist bei intimen Bildern besonders wichtig?", ["nicht weiterleiten, nicht selbst auswerten, Schutzweg prüfen", "zur Leitung schicken", "in der Klasse klären", "privat speichern"], 0], ["Was prüft die erweiterte Kompetenz-Ampel?", ["Krisenampel, Übergabe, Nachsorge, Emsland-Verfahrenssicherheit und Datenschutz", "nur Rechtschreibung", "nur Quizpunkte", "nur Anwesenheit"], 0]];
+let state = JSON.parse(localStorage.getItem(MODULE_ID+"_state") || '{"done":[],"fields":{},"quizScore":0}');
+let current = 0;
+
+function saveState(){ localStorage.setItem(MODULE_ID+"_state", JSON.stringify(state)); }
+function render(){
+ const secWrap=document.getElementById('sections');
+ secWrap.innerHTML = SECTION_HTML.map((b,i)=>`<section class="card section ${i===current?'active':''}" id="section${i}">
+ <h2>${SECTION_TITLES[i]}</h2>${b}
+ <div class="controls"><button onclick="completeSection(${i})">Abschnitt abschließen</button><button class="secondary" onclick="go(${Math.max(0,i-1)})">Zurück</button><button class="secondary" onclick="go(${Math.min(SECTION_HTML.length-1,i+1)})">Weiter</button></div>
+ </section>`).join('');
+ renderNav(); restoreFields(); renderQuiz(); updateProgress(); updateCertificate(); renderCompetence();
+}
+function renderNav(){
+ const nav=document.getElementById('navButtons');
+ nav.innerHTML=SECTION_TITLES.map((t,i)=>{
+  const locked = i>0 && !state.done.includes(i-1);
+  return `<button class="navbtn ${locked?'locked':''} ${state.done.includes(i)?'done':''} ${i===current?'active':''}" onclick="go(${i})" ${locked?'disabled':''}>${state.done.includes(i)?'✓':'○'} ${i+1}. ${t}</button>`;
+ }).join('');
+}
+function go(i){
+ if(i>0 && !state.done.includes(i-1)){ alert("Dieser Abschnitt wird erst nach Abschluss des vorherigen Abschnitts freigeschaltet."); return; }
+ current=i; render();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleNav(){
+ document.getElementById('nav').classList.toggle('hidden');
+ document.getElementById('layout').classList.toggle('full');
+}
+function requiredFieldsInSection(i){
+ return [...document.querySelectorAll(`#section${i} [data-required="true"]`)];
+}
+function completeSection(i){
+ const fields=requiredFieldsInSection(i);
+ for(const el of fields){
+  const min = parseInt(el.dataset.min || "1",10);
+  if(!el.value || (el.tagName==="TEXTAREA" && el.value.trim().length < min)){
+   alert("Bitte bearbeiten Sie zuerst alle Pflichtfelder dieses Abschnitts. Bei Freitextfeldern ist eine Mindestlänge erforderlich.");
+   el.focus(); return;
+  }
+  state.fields[el.id]=el.value;
+ }
+ if(i===11){
+  const need=Math.ceil(QUIZ.length*0.8);
+  if((state.quizScore||0)<need){
+   alert("Bitte bestehen Sie zuerst den Gelingensnachweis mit mindestens 80 Prozent.");
+   return;
+  }
+ }
+ if(!state.done.includes(i)) state.done.push(i);
+ saveState(); renderNav(); updateProgress(); updateCertificate();
+ alert("Abschnitt abgeschlossen.");
+}
+function updateProgress(){
+ const n=state.done.length,total=SECTION_HTML.length;
+ const pct=Math.round(n/total*100);
+ const prog=document.querySelector('.progress');
+ if(prog) prog.setAttribute('aria-valuenow', String(pct));
+ document.getElementById('bar').style.width=pct+"%";
+ document.getElementById('progressText').textContent=`${n} / ${total} abgeschlossen`;
+}
+function saveField(id){
+ const el=document.getElementById(id);
+ if(el){ state.fields[id]=el.value; saveState(); }
+}
+function restoreFields(){
+ Object.entries(state.fields||{}).forEach(([id,val])=>{ const el=document.getElementById(id); if(el) el.value=val; });
+ const nm=document.getElementById('learnerName'); if(nm){ nm.value=localStorage.getItem(MODULE_ID+"_name")||""; nm.oninput=()=>{ localStorage.setItem(MODULE_ID+"_name",nm.value); state.fields.learnerName=nm.value; saveState(); }; }
+ const em=document.getElementById('userEmail'); if(em){ em.value=localStorage.getItem(MODULE_ID+"_email")||state.fields.userEmail||""; em.oninput=()=>{ localStorage.setItem(MODULE_ID+"_email",em.value); state.fields.userEmail=em.value; saveState(); }; }
+ const pc=document.getElementById('privacyConfirm'); if(pc){ pc.checked=localStorage.getItem(MODULE_ID+"_privacy")==="1"; pc.onchange=()=>{ localStorage.setItem(MODULE_ID+"_privacy",pc.checked?"1":"0"); state.fields.privacyConfirm=pc.checked; saveState(); }; }
+}
+function showSolution(id){ document.getElementById(id)?.classList.remove('hidden'); }
+function checkSelect(id, correct, target){
+ const val=document.getElementById(id).value; saveField(id);
+ const fb=document.getElementById(target);
+ if(val===correct) fb.innerHTML='<span class="good">Richtig.</span> Diese Auswahl passt fachlich.';
+ else fb.innerHTML='<span class="bad">Noch nicht passend.</span> Prüfen Sie Krisenampel, Schutzlogik, Zuständigkeit und Verhältnismäßigkeit.';
+}
+function analyzeText(id){
+ const el=document.getElementById(id), box=document.getElementById("analysis_"+id);
+ if(!el||!box) return;
+ const t=el.value.toLowerCase();
+ const warnings = [
+  ["alles geheim","Absolute Geheimhaltung ist riskant. In Krisen muss transparent erklärt werden, dass Schutz und Verfahren Grenzen setzen."],
+  ["niemand erfährt","Absolute Geheimhaltung ist riskant."],
+  ["ich entscheide allein","Keine Einzelentscheidung in Krisen- oder Kinderschutzlagen."],
+  ["alle kollegen","Keine pauschale Weitergabe an Kollegium oder Verteiler."],
+  ["whatsapp","Private Messenger sind für sensible Krisendaten ungeeignet."],
+  ["private cloud","Private Cloudspeicher sind ungeeignet."],
+  ["screenshots an die leitung","Screenshots mit sensiblen Inhalten dürfen nicht ungesichert weitergeleitet werden."],
+  ["bilder weiter","Keine eigenständige Weiterleitung sensibler Bilder oder Screenshots."],
+  ["beweise sichern","Schulsozialarbeit ermittelt nicht und sichert keine Beweise."],
+  ["ganze klasse","Keine Gruppenermittlung oder Befragung der Klasse in sensiblen Krisenlagen."],
+  ["sofort eltern","Elternbeteiligung muss bei möglicher Gefährdung fachlich abgewogen werden."],
+  ["erstmal abwarten","Bei akuter Gefahr oder gewichtigen Anhaltspunkten ist bloßes Abwarten riskant."],
+  ["jugendamt immer sofort","Nicht jede Sorge ist sofortige Meldung. Lokaler Verfahrensweg und Fachberatung sind zu prüfen."],
+  ["emsland reicht ungefähr","Lokale Zuständigkeiten müssen aktuell und konkret geprüft werden."]
+ ];
+ const positives=["krisenampel","grün","gelb","rot","schutz","sicherheit","fachberatung","leitung","jugendhilfe","emsland","meldebogen","ablaufschema","checkliste","übergabe","nachsorge","dokumentation","erforderlich","datenschutz","wörtlich","beobachtung","risiko","schutzfaktor","notfall","nachhalten","kooperation","verfahrensweg","kind beteiligen","keine suggestivfragen","sichere ablage"];
+ let html="";
+ const hits=warnings.filter(w=>t.includes(w[0]));
+ if(hits.length) html += "<strong>Warnhinweise:</strong><ul>"+hits.map(h=>`<li>${h[1]}</li>`).join("")+"</ul>";
+ const pos=positives.filter(p=>t.includes(p));
+ html += "<strong>Positive Marker gefunden:</strong> "+(pos.length?pos.join(", "):"noch wenige fachliche Marker sichtbar")+".";
+ if(el.tagName==="TEXTAREA"){
+  const min=parseInt(el.dataset.min||"0",10);
+  if(el.value.trim().length<min) html += `<p class="bad">Mindestlänge noch nicht erreicht: ${el.value.trim().length} / ${min} Zeichen.</p>`;
+ }
+ box.innerHTML=html;
+ saveField(id); renderCompetence();
+}
+function renderQuiz(){
+ const q=document.getElementById('quiz'); if(!q) return;
+ q.innerHTML=QUIZ.map((item,idx)=>{
+  const opts=item[1].map((o,j)=>`<label><input type="radio" name="q${idx}" value="${j}"> ${o}</label>`).join("");
+  return `<div class="q"><strong>${idx+1}. ${item[0]}</strong>${opts}</div>`;
+ }).join("");
+}
+function gradeQuiz(){
+ let score=0;
+ QUIZ.forEach((it,i)=>{ const chosen=document.querySelector(`input[name=q${i}]:checked`); if(chosen && Number(chosen.value)===it[2]) score++; });
+ state.quizScore=score; saveState();
+ const need=Math.ceil(QUIZ.length*0.8);
+ document.getElementById('quizResult').innerHTML=`Ergebnis: <strong>${score} / ${QUIZ.length}</strong>. Bestehensgrenze: ${need} richtige Antworten.`;
+ updateCertificate(); renderCompetence();
+}
+function renderCompetence(){
+ const box=document.getElementById('competence'); if(!box) return;
+ const txt=Object.values(state.fields||{}).join(" ").toLowerCase();
+ const areas=[
+  ["Krisenampel",["krisenampel","grün","gelb","rot"]],
+  ["Kooperation Jugendhilfe",["jugendhilfe","fachberatung","verfahrensweg","emsland"]],
+  ["Übergabe",["übergabe","erforderlich","nächster schritt","zuständig"]],
+  ["Dokumentation",["dokumentation","wörtlich","beobachtung","datum"]],
+  ["Datenschutz/digitale Ablage",["datenschutz","sichere ablage","keine messenger","private cloud"]],
+  ["Kindbeteiligung",["kind","beteiligen","transparent","ernst"]],
+  ["Nachsorge Schüler:innen",["nachsorge","ansprechperson","sicherer raum","nachhalten"]],
+  ["Emsland-Verfahrenssicherheit",["emsland","meldebogen","checkliste","ablaufschema","schutzkonzept"]]
+ ];
+ box.innerHTML="<h3>Kompetenz-Ampel</h3><table><tr><th>Bereich</th><th>Status</th></tr>"+areas.map(a=>{
+  const count=a[1].filter(k=>txt.includes(k)).length;
+  const st=count>=2?'<span class="good">sicher sichtbar</span>':count===1?'<span class="warningText">teilweise sichtbar</span>':'<span class="bad">noch wenig sichtbar</span>';
+  return `<tr><td>${a[0]}</td><td>${st}</td></tr>`;
+ }).join("")+"</table>";
+}
+function getLearnerMeta(){
+ const name=document.getElementById('learnerName')?.value?.trim()||'';
+ const email=document.getElementById('userEmail')?.value?.trim()||'';
+ return {name,email};
+}
+function setSendStatus(message){
+ const status=document.getElementById('sendStatus') || document.getElementById('sendStatusHeader');
+ const headerStatus=document.getElementById('sendStatusHeader');
+ if(status) status.textContent=message;
+ if(headerStatus && headerStatus!==status) headerStatus.textContent=message;
+}
+function validateLearnerFields(){
+ const {name,email}=getLearnerMeta();
+ const emailInput=document.getElementById('userEmail');
+ const privacy=document.getElementById('privacyConfirm');
+ if(!name){ setSendStatus('Bitte zuerst den Namen eintragen.'); document.getElementById('learnerName')?.focus(); return false; }
+ if(!email){ setSendStatus('Bitte zuerst die E-Mail-Adresse eintragen.'); emailInput?.focus(); return false; }
+ if(emailInput && !emailInput.checkValidity()){ setSendStatus('Bitte eine gültige E-Mail-Adresse eintragen.'); emailInput.focus(); return false; }
+ if(privacy && !privacy.checked){ setSendStatus('Bitte die Datenschutz-/Übermittlungsbestätigung im Header anklicken.'); privacy.focus(); return false; }
+ localStorage.setItem(MODULE_ID+"_name",name);
+ localStorage.setItem(MODULE_ID+"_email",email);
+ localStorage.setItem(MODULE_ID+"_privacy","1");
+ state.fields.learnerName=name;
+ state.fields.userEmail=email;
+ state.fields.privacyConfirm=true;
+ saveState();
+ return true;
+}
+function updateCertificate(){
+ const cert=document.getElementById('certificate'); if(!cert) return;
+ const transfer=document.getElementById('transfer');
+ const needQuiz=Math.ceil(QUIZ.length*0.8);
+ const ok = state.done.length>=SECTION_HTML.length && (state.quizScore||0)>=needQuiz && transfer && transfer.value.trim().length>=2200;
+ cert.classList.toggle('hidden', !ok);
+ const n=document.getElementById('learnerName')?.value || "________________";
+ document.getElementById('certName').textContent=n;
+ document.getElementById('certDate').textContent=new Date().toLocaleDateString('de-DE');
+}
+function exportData(){
+ const {name,email}=getLearnerMeta();
+ const data={module:MODULE_ID, title:document.title, learnerName:name, name:name, email:email, done:state.done, progress:state.done.length+'/'+SECTION_HTML.length, fields:state.fields, quizScore:state.quizScore, exportedAt:new Date().toISOString()};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=MODULE_ID+"_bearbeitung.json"; a.click();
+}
+
+function saveNow(){
+ state.fields.learnerName=document.getElementById('learnerName')?.value.trim() || "";
+ state.fields.userEmail=document.getElementById('userEmail')?.value.trim() || "";
+ state.fields.privacyConfirm=!!document.getElementById('privacyConfirm')?.checked;
+ document.querySelectorAll('textarea, select, input[type="text"], input[type="email"], input[type="number"]').forEach(el=>{
+  if(el.id) state.fields[el.id]=el.value;
+ });
+ saveState();
+ setSendStatus("Zwischengespeichert. Sie können später weiterarbeiten.");
+}
+
+function getOpenTasks(){
+ const open=[];
+ for(let i=0;i<SECTION_HTML.length;i++){
+  if(!state.done.includes(i)) open.push((i+1)+". "+SECTION_TITLES[i]);
+ }
+ return open;
+}
+
+function getQuizMeta(){
+ const max = Array.isArray(QUIZ) ? QUIZ.length : 0;
+ const score = Number(state.quizScore || 0);
+ const pct = max ? Math.round(score / max * 100) : 0;
+ return {score, max, pct, passed: max ? pct >= 80 : false};
+}
+
+async function sendData(){
+ saveNow();
+ if(!validateLearnerFields()) return;
+ const {name,email}=getLearnerMeta();
+ const openTasks=getOpenTasks();
+ const quiz=getQuizMeta();
+ const progressPct=Math.round((state.done.length/SECTION_HTML.length)*100);
+ const payload={
+  name:name,
+  email:email,
+  modul:"Band 4 Modul 4",
+  module:"Band 4 Modul 4",
+  moduleId:MODULE_ID,
+  moduleTitle:"Krisenintervention, Dokumentation und Kooperation mit Jugendhilfe",
+  erledigt:state.done.length+"/"+SECTION_HTML.length,
+  progress:state.done.length+"/"+SECTION_HTML.length,
+  progressPct:progressPct,
+  timestamp:new Date().toISOString(),
+  quizScore:quiz.score,
+  quizMax:quiz.max,
+  quizPct:quiz.pct,
+  quizPassed:quiz.passed,
+  incomplete:openTasks.length>0,
+  openTasks:openTasks,
+  moduleVersion:"Band4Modul4-repariert-2026-06-15",
+  state:state
+ };
+ if(openTasks.length>0){
+  setSendStatus("Gesendet werden kann trotzdem. Noch offen: "+openTasks.slice(0,3).join(" | ")+(openTasks.length>3?" ...":""));
+ } else {
+  setSendStatus("Alle Abschnitte abgeschlossen. Daten werden gesendet.");
+ }
+ if(!APP_PUBLIC_URL || APP_PUBLIC_URL.includes("HIER_DEINE")){ setSendStatus("Zwischengespeichert. Google-Sheets-Anbindung ist vorbereitet, aber noch nicht aktiviert."); return; }
+ try {
+  await fetch(APP_PUBLIC_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+  setSendStatus(openTasks.length>0 ? "Daten wurden gesendet. Hinweis: Es sind noch Aufgaben offen." : "Daten wurden vollständig gesendet.");
+ } catch(e) { setSendStatus("Senden fehlgeschlagen: "+e.message); }
+}
+function resetProgress(){
+ if(confirm("Fortschritt wirklich löschen?")){ localStorage.removeItem(MODULE_ID+"_state"); state={done:[],fields:{},quizScore:0}; render(); }
+}
+render();
+</script>
+</body>
+</html>
